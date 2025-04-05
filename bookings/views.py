@@ -3,6 +3,7 @@ from django.views import generic
 from .models import Table
 
 # Create your views here.
-class TableList(generic.ListView):
-    queryset = Table.objects.all()
-    template_name = "bookings/table_list.html"
+def table_list(request):
+    tables = Table.objects.all()
+    return render(request, 'bookings/table_list.html', {'tables': tables})
+
