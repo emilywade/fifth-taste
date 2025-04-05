@@ -31,3 +31,6 @@ def create_booking(request):
     form = BookingForm()
 
     return render(request, 'bookings/create_booking.html', {'form': form})
+
+def home(request):
+    return render(request, 'bookings/home.html')

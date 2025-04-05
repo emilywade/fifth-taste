@@ -1,0 +1,66 @@
+/* General Styles */
+body {
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Navbar Styles */
+.navbar {
+    background-color: #f8f9fa;
+}
+
+.navbar-brand {
+    font-family: 'Boldonse', sans-serif;
+    color: #ffcc00;
+    font-size: 1.5rem;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.navbar-nav .nav-link {
+    font-family: 'Poppins', sans-serif;
+    color: #555;
+    font-weight: 500;
+}
+
+.navbar-nav .nav-link:hover {
+    color: #ffcc00;
+}
+
+/* Footer Styles */
+footer {
+    background-color: #f8f9fa;
+}
+
+footer .social-icons {
+    display: flex;
+    justify-content: center; 
+    gap: 10px;
+    margin-bottom: 0; 
+}
+
+footer .social-icon {
+    text-decoration: none;
+    font-size: 1.75rem; 
+    color: #555; 
+    transition: color 0.3s ease; 
+}
+
+footer .social-icon:hover {
+    color: #ffcc00 !important;
+}
+
+footer p {
+    margin-top: 0; 
+    font-size: 0.75rem; 
+    color: #6c757d; 
+    margin-bottom: 0; 
+}
+
+.py-4 {
+    padding-top: 10px !important;
+    padding-bottom: 5px !important;
+}
+
+.mt-3 {
+    margin-top: 5px !important;
+}
