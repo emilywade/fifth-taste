@@ -1,0 +1,7 @@
+
+  <h1>Available Tables</h1>
+  <ul>
+    {% for table in tables %}
+      <li>Table #{{ table.table_number }} (Capacity: {{ table.capacity }})</li>
+    {% endfor %}
+  </ul>
