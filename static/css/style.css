@@ -96,13 +96,18 @@ footer p {
 
 @media (max-width: 768px) {
     #hero-jumbotron p {
-        font-size: 1.25rem; /* Smaller text for tablets */
+        font-size: 1.25rem; 
     }
 }
 
-/* Adjust paragraph size for devices with a max-width of 480px (phones) */
+
 @media (max-width: 480px) {
     #hero-jumbotron p {
-        font-size: 1rem; /* Smaller text for phones */
+        font-size: 1rem;
     }
+}
+
+#bio {
+    padding:30px;
+    width: 80%;
 }
