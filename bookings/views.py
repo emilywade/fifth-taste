@@ -1,9 +1,26 @@
 from django.shortcuts import render
-from django.views import generic
-from .models import Table
+from datetime import datetime, timedelta
+from .models import Table, Booking
 
 # Create your views here.
-def table_list(request):
-    tables = Table.objects.all()
-    return render(request, 'bookings/table_list.html', {'tables': tables})
+# def table_list(request):
+#     tables = Table.objects.all()
+#     return render(request, 'bookings/table_list.html', {'tables': tables})
 
+
+def get_available_tables(date, time, num_guests):
+    booking_start = time
+    booking_end = (datetime.combine(date, time) + timedelta(hours=2)).time()
+
+    candidate_tables = Table.objects.filter(capacity__gte=num_guests)
+
+    booked_tables = Booking.objects.filter(
+        date=date,
+        time__lt=booking_end,
+    ).filter(
+        time__gte=booking_start
+    ).values_list('table_number', flat=True)
+
+    available_tables = candidate_tables.exclude(id__in=booked_tables)
+
+    return available_tables
