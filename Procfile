@@ -1,0 +1,1 @@
+web: gunicorn fifth_taste.wsgi
