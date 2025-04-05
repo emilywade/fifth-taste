@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from datetime import datetime, timedelta
 from .models import Table, Booking
+from .forms import BookingForm
 
 # Create your views here.
 # def table_list(request):
@@ -24,3 +25,9 @@ def get_available_tables(date, time, num_guests):
     available_tables = candidate_tables.exclude(id__in=booked_tables)
 
     return available_tables
+
+
+def create_booking(request):
+    form = BookingForm()
+
+    return render(request, 'bookings/create_booking.html', {'form': form})
