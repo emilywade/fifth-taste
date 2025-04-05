@@ -64,3 +64,45 @@ footer p {
 .mt-3 {
     margin-top: 5px !important;
 }
+
+/* Home page Styles */
+#hero-jumbotron {
+    position: relative;
+    background-image: url('/static/images/homepage.jpg');
+    background-size: cover;
+    background-position: center center;
+    height: 50vh;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#hero-jumbotron::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.3);
+    z-index: 1;
+}
+
+#hero-jumbotron h1, #hero-jumbotron p {
+    position: relative;
+    z-index: 2; 
+}
+
+@media (max-width: 768px) {
+    #hero-jumbotron p {
+        font-size: 1.25rem; /* Smaller text for tablets */
+    }
+}
+
+/* Adjust paragraph size for devices with a max-width of 480px (phones) */
+@media (max-width: 480px) {
+    #hero-jumbotron p {
+        font-size: 1rem; /* Smaller text for phones */
+    }
+}
