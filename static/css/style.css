@@ -111,3 +111,8 @@ footer p {
     padding:30px;
     width: 80%;
 }
+
+/* Booking page styles */
+#bookingForm {
+    width: 50%;
+}
