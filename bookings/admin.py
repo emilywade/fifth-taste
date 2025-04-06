@@ -7,7 +7,7 @@ class BookingAdmin(admin.ModelAdmin):
 
     list_filter = ['date', 'time', 'num_guests']
 
-    list_display = ['name', 'email', 'date', 'time', 'num_guests', 'special_requests']
+    list_display = ['name', 'table_number', 'date', 'time', 'num_guests', 'special_requests']
 
     list_editable = ['num_guests', 'special_requests']
 

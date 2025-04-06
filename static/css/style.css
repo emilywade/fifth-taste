@@ -150,3 +150,17 @@ form {
     text-align: center;
     margin-top: 40px;
 }
+
+.custom-message.error-message {
+    background-color: #f598a1; 
+    color: black;
+}
+
+.custom-message.success-message {
+    background-color: #d1f4b1;
+    color: black;
+}
+
+.custom-message {
+    padding: 20px;
+}

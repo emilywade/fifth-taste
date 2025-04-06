@@ -33,7 +33,7 @@
     {% if messages %}
         <div class="message-wrapper">
             {% for message in messages %}
-                <div class="alert alert-success" role="alert">
+                <div class="custom-message {% if message.tags == 'error' %} error-message {% else %} success-message {% endif %}" role="alert">
                     {{ message }}
                 </div>
             {% endfor %}
