@@ -5,7 +5,6 @@ import datetime
 class BookingForm(forms.ModelForm):
     name = forms.CharField(max_length=100, label='Your Name')
     email = forms.EmailField(label='Email Address')
-
     time = forms.ChoiceField(label='Time')
 
     class Meta:

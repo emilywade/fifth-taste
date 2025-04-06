@@ -23,9 +23,18 @@ def get_available_tables(date, time, num_guests):
 
 
 def create_booking(request):
-    form = BookingForm()
-
+    if request.method == 'POST':
+        form = BookingForm(request.POST)
+        if form.is_valid():
+            data = form.cleaned_data
+            print("booking data:", data)
+        else:
+            print("form is invalid:", form.errors)  # <-- This will help you debug
+    else:
+        form = BookingForm()
     return render(request, 'bookings/create_booking.html', {'form': form})
+
+
 
 def home(request):
     return render(request, 'bookings/home.html')
