@@ -30,6 +30,16 @@
 
 <body class="d-flex flex-column min-vh-100">
     
+    {% if messages %}
+        <div class="message-wrapper">
+            {% for message in messages %}
+                <div class="alert alert-success" role="alert">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
     <!-- navbar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
         <div class="container">

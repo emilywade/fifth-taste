@@ -1,7 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from datetime import datetime, timedelta
 from .models import Table, Booking
 from .forms import BookingForm
+from django.contrib import messages
 
 
 def get_available_tables(date, time, num_guests):
@@ -34,13 +35,10 @@ def create_booking(request):
             num_guests = data['num_guests']
             
             available_tables = get_available_tables(date, time, num_guests)
-            
-            # print("Available tables:", available_tables)
-            
+                        
             if available_tables:
             
                 table = available_tables[0]
-                # print(table)
                 
                 Booking.objects.create(
                     table_number=table,
@@ -52,18 +50,27 @@ def create_booking(request):
                     special_requests=data['special_requests']
                 ) 
                 
+                messages.success(request, 'Your booking has been made successfully!')
+                
+                return redirect('booking_confirmation')
                 
             else:
-                print('no table available')
+                messages.error(request, 'No available tables for the selected time and date.')
+                
+                return render(request, 'bookings/create_booking.html', {'form': form})
         
         else:
-            print("form invalid")
+            return render(request, 'bookings/create_booking.html', {'form': form})
             
     else:
         form = BookingForm()
-    return render(request, 'bookings/create_booking.html', {'form': form})
+        return render(request, 'bookings/create_booking.html', {'form': form})
 
 
 
 def home(request):
     return render(request, 'bookings/home.html')
+
+
+def booking_confirmation(request):
+    return render(request, 'bookings/booking_confirmation.html')
