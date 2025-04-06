@@ -28,14 +28,36 @@ def create_booking(request):
     if request.method == 'POST':
         form = BookingForm(request.POST)
         if form.is_valid():
-            date = form.cleaned_data['date']
-            time = form.cleaned_data['time']
-            num_guests = form.cleaned_data['num_guests']
+            data = form.cleaned_data
+            date = data['date']
+            time = data['time']
+            num_guests = data['num_guests']
             
             available_tables = get_available_tables(date, time, num_guests)
             
+            # print("Available tables:", available_tables)
             
-            print("Available tables:", available_tables)
+            if available_tables:
+            
+                table = available_tables[0]
+                # print(table)
+                
+                Booking.objects.create(
+                    table_number=table,
+                    name=data['name'],
+                    email=data['email'],
+                    date=date,
+                    time=time,
+                    num_guests=num_guests,
+                    special_requests=data['special_requests']
+                ) 
+                
+                
+            else:
+                print('no table available')
+        
+        else:
+            print("form invalid")
             
     else:
         form = BookingForm()
