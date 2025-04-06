@@ -3,11 +3,6 @@ from datetime import datetime, timedelta
 from .models import Table, Booking
 from .forms import BookingForm
 
-# Create your views here.
-# def table_list(request):
-#     tables = Table.objects.all()
-#     return render(request, 'bookings/table_list.html', {'tables': tables})
-
 
 def get_available_tables(date, time, num_guests):
     booking_start = time
