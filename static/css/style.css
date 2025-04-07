@@ -164,3 +164,21 @@ form {
 .custom-message {
     padding: 20px;
 }
+
+/* Menu styles */
+.accordion-button {
+    background-color: #fff9db !important;
+    color: #333  !important;
+}
+
+.accordion-button:not(.collapsed) {
+    background-color: #fff3bf !important;
+    color: #111 !important;
+    box-shadow: inset 0 -1px 0 rgba(0,0,0,.125) !important;
+}
+
+.accordion-body ul {
+    list-style: none;
+    padding-left: 0;
+    text-align: center;
+}

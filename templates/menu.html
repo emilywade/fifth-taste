@@ -1,5 +1,84 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<div class="container mt-5" style="max-width: 700px;">
+    <h2 class="text-center mb-4">Our Menu</h2>
 
+    <div class="accordion" id="menuAccordion">
+
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingDrinks">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseDrinks" aria-expanded="true" aria-controls="collapseDrinks">
+                    Drinks
+                </button>
+            </h2>
+            <div id="collapseDrinks" class="accordion-collapse collapse show" aria-labelledby="headingDrinks" data-bs-parent="#menuAccordion">
+                <div class="accordion-body">
+                    <ul>
+                        <li>Tomato & Shiso Bloody Mary</li>
+                        <li>Martini Umami-tini</li>
+                        <li>Smoky Old Fashioned</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingStarters">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseStarters" aria-expanded="false" aria-controls="collapseStarters">
+                    Starters
+                </button>
+            </h2>
+            <div id="collapseStarters" class="accordion-collapse collapse" aria-labelledby="headingStarters" data-bs-parent="#menuAccordion">
+                <div class="accordion-body">
+                    <ul>
+                        <li>Nasu Dengaku</li>
+                        <li>Beef Tataki with Ponzu Sauce</li>
+                        <li>Shiitake Mushroom & Truffle Arancini</li>
+                        <li>Prosciutto-Wrapped Asparagus with Parmesan</li>
+                        <li>Savory Dashi Chawanmushi</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingMains">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseMains" aria-expanded="false" aria-controls="collapseMains">
+                    Mains
+                </button>
+            </h2>
+            <div id="collapseMains" class="accordion-collapse collapse" aria-labelledby="headingMains" data-bs-parent="#menuAccordion">
+                <div class="accordion-body">
+                    <ul>
+                        <li>Braised Short Ribs with Red Wine & Mushrooms</li>
+                        <li>Miso-Glazed Black Cod</li>
+                        <li>Ramen with Pork Belly & Soft Egg</li>
+                        <li>Mushroom Risotto with Parmesan & Truffle</li>
+                        <li>Duck Breast with Cherry-Balsamic Reduction
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingDesserts">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseDesserts" aria-expanded="false" aria-controls="collapseDesserts">
+                    Desserts
+                </button>
+            </h2>
+            <div id="collapseDesserts" class="accordion-collapse collapse" aria-labelledby="headingDesserts" data-bs-parent="#menuAccordion">
+                <div class="accordion-body">
+                    <ul>
+                        <li>Parmesan & Honey Shortbread</li>
+                        <li>Dark Chocolate & Black Garlic Truffles</li>
+                        <li>Toasted Sesame Panna Cotta</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
 {% endblock %}
