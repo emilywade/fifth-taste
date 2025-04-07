@@ -69,7 +69,11 @@ def create_booking(request):
 
 
 def home(request):
-    return render(request, 'bookings/home.html')
+    return render(request, 'home.html')
+
+
+def menu(request):
+    return render(request, 'menu.html')
 
 
 def booking_confirmation(request):
