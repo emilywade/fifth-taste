@@ -52,6 +52,13 @@ def create_booking(request):
                 
                 messages.success(request, 'Your booking has been made successfully!')
                 
+                request.session['booking_name'] = data['name']
+                request.session['booking_email'] = data['email']
+                request.session['booking_date'] = str(data['date'])
+                request.session['booking_time'] = str(data['time'])
+                request.session['booking_num_guests'] = str(data['num_guests'])
+                request.session['booking_special_requests'] = data['special_requests']
+                
                 return redirect('booking_confirmation')
                 
             else:
@@ -77,4 +84,11 @@ def menu(request):
 
 
 def booking_confirmation(request):
-    return render(request, 'bookings/booking_confirmation.html')
+    context = {
+        'booking_name': request.session.get('booking_name'),
+        'booking_email': request.session.get('booking_email'),
+        'booking_date': request.session.get('booking_date'),
+        'booking_time': request.session.get('booking_time'),
+    }
+    return render(request, 'bookings/booking_confirmation.html', context)
+    
