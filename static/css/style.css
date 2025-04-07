@@ -182,3 +182,15 @@ form {
     padding-left: 0;
     text-align: center;
 }
+
+.carousel-inner {
+    height: 600px;
+}
+
+.carousel-item img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
