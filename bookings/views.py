@@ -3,10 +3,6 @@ from datetime import datetime, timedelta
 from .models import Table, Booking
 from .forms import BookingForm
 from django.contrib import messages
-from django.core.mail import send_mail
-from django.template.loader import render_to_string
-from django.utils.html import strip_tags
-from django.conf import settings
 
 
 def get_available_tables(date, time, num_guests):
@@ -44,7 +40,7 @@ def create_booking(request):
             
                 table = available_tables[0]
                 
-                booking = Booking.objects.create(
+                Booking.objects.create(
                     table_number=table,
                     name=data['name'],
                     email=data['email'],
@@ -52,27 +48,6 @@ def create_booking(request):
                     time=time,
                     num_guests=num_guests,
                     special_requests=data['special_requests']
-                ) 
-                
-                email_subject = "Booking Confirmation"
-                email_context = {
-                    'name': data['name'],
-                    'booking_id': booking.booking_id,
-                    'date': booking.date,
-                    'time': booking.time,
-                    'num_guests': booking.num_guests,
-                    'special_requests': booking.special_requests
-                }
-                
-                html_message = render_to_string('bookings/booking_confirmation_email.html', email_context)
-                plain_message = strip_tags(html_message)
-
-                send_mail(
-                    email_subject,
-                    plain_message,
-                    settings.DEFAULT_FROM_EMAIL,
-                    [data['email']],
-                    html_message=html_message,
                 )
                 
                 messages.success(request, 'Your booking has been made successfully!')

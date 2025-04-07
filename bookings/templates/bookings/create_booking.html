@@ -11,7 +11,7 @@
                 <p id="bookingSubtitle">We'd love to see you, why not get a date in the diary?</p>
                 <hr>
             </div>
-            <form method="POST" id="bookingForm">
+            <form method="POST" id="bookingForm" onsubmit="sendConfirmationEmail(this); return false;">
                 {% csrf_token %}
                 <div class="form-group">
                     <label for="name">Your Name:</label>
