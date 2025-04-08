@@ -4,7 +4,7 @@
 1. [Project Overview](project-overview)
 2. [Rationale](rationale)
 3. [Planning](planning)
-4. [Schema](schema)
+4. [Schema](#schema)
 5. [Security Features](security-features)
 6. [Deployment](deployment)
 7. [Testing](testing)
