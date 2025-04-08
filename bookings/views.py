@@ -4,6 +4,7 @@ from .models import Table, Booking
 from .forms import BookingForm
 from django.contrib import messages
 from django.shortcuts import get_object_or_404
+import logging
 
 
 def get_available_tables(date, time, num_guests):
@@ -108,3 +109,22 @@ def manage_booking(request, booking_id):
         form = BookingForm(instance=booking)
         
     return render(request, 'bookings/manage_booking.html', {'form': form, 'booking': booking})
+
+logger = logging.getLogger(__name__)
+
+def delete_booking(request, booking_id):
+    logger.debug(f"Attempting to delete booking with ID: {booking_id}")
+    try:
+        booking = get_object_or_404(Booking, booking_id=booking_id)
+        logger.debug(f"Booking found: {booking}")
+    except Exception as e:
+        logger.error(f"Error: {str(e)}")
+        messages.error(request, f"Error: {str(e)}")
+        return redirect('manage_booking', booking_id=booking_id)
+
+    if request.method == 'POST':
+        booking.delete()
+        messages.success(request, "Your booking has been deleted successfully.")
+        return redirect('home')
+
+    return redirect('manage_booking', booking_id=booking_id) 

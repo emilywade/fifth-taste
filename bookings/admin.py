@@ -3,11 +3,11 @@ from .models import Table, Booking
 
 
 class BookingAdmin(admin.ModelAdmin):
-    search_fields = ['name', 'email', 'date', 'time']
+    search_fields = ['name', 'email', 'date', 'time', 'booking_id']
 
     list_filter = ['date', 'time', 'num_guests']
 
-    list_display = ['name', 'table_number', 'date', 'time', 'num_guests', 'special_requests']
+    list_display = ['booking_id', 'name', 'table_number', 'date', 'time', 'num_guests', 'special_requests']
 
     list_editable = ['num_guests', 'special_requests']
 
