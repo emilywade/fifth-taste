@@ -60,6 +60,9 @@ In addition to the wireframe, I thought about the structure of the project, sinc
 
 You can access the initial planning document here: [Lucidchart Planning Document](https://lucid.app/lucidchart/0c964fbb-9e59-4619-bf1c-b4e3ecfff5bb/edit?invitationId=inv_ecf3eb04-4041-4568-b217-d5c48ca4a0b2)
 
+### Agile
+I used an agile framework throughout this project. Before starting, I created a [project board](https://github.com/users/emilywade/projects/9) with user stories and well-defined acceptance criteria. This helped me focus on delivering specific features. 
+
 <hr>
 
 ## Schema
