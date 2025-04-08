@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+ 
+ {% block content %}
+ <div class="message-container">
+     <h2>Your booking has been cancelled.</h2>
+     <p>We've sent you a confirmation email to confirm this.</p>
+ </div>    
+ 
+ <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+ 
+ <script type="text/javascript">
+     document.addEventListener("DOMContentLoaded", function () {
+         (function(){
+             emailjs.init({
+                 publicKey: "orDbunfZEWG7sa4Ss",
+             });
+         })();
+ 
+         const bookingData = {
+            name: "{{ request.session.deleted_booking.name|escapejs }}",
+            email: "{{ request.session.deleted_booking.email|default_if_none:''|escapejs }}",
+            date: "{{ request.session.deleted_booking.date|escapejs }}",
+            time: "{{ request.session.deleted_booking.time|escapejs }}",
+            num_guests: "{{ request.session.deleted_booking.num_guests|escapejs }}",
+            special_requests: "{{ request.session.deleted_booking.special_requests|escapejs }}",
+            booking_id: "{{ request.session.deleted_booking.booking_id|escapejs }}",
+            manage_link: "{{ request.scheme }}://{{ request.get_host }}/manage_booking/{{ request.session.deleted_booking.booking_id|escapejs }}/"
+        };
+ 
+         console.log("Sending email with:", bookingData);
+ 
+         emailjs.send("service_n79jo81", "template_tthuq86", bookingData)
+             .then(function(response) {
+                 console.log("SUCCESS!", response.status, response.text);
+             }, function(error) {
+                 console.log("FAILED...", error);
+             });
+     });
+     sessionStorage.removeItem('deleted_booking');
+ </script>
+ {% endblock %}

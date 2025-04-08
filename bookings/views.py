@@ -127,13 +127,44 @@ def delete_booking(request, booking_id):
         return redirect('manage_booking', booking_id=booking_id)
 
     if request.method == 'POST':
+        booking_data = {
+            'name': booking.name,
+            'email': booking.email,
+            'date': booking.date.strftime('%Y-%m-%d'),
+            'time': booking.time.strftime('%H:%M'),
+            'num_guests': booking.num_guests,
+            'special_requests': booking.special_requests,
+            'booking_id': str(booking.booking_id),
+        }
+
+        request.session['deleted_booking'] = booking_data
+        
         booking.delete()
+        
         messages.success(request, "Your booking has been deleted successfully.")
-        return redirect('home')
+        logger.debug(f"Redirecting to booking_cancellation")
+        return redirect('booking_cancellation')
 
     return redirect('manage_booking', booking_id=booking_id) 
+
+
 
 def booking_updated_confirmation(request, booking_id):
     booking = get_object_or_404(Booking, booking_id=booking_id)
     
     return render(request, 'bookings/booking_updated_confirmation.html', {'booking': booking})
+
+
+
+def booking_cancellation(request):
+    booking_info = {
+        'name': request.session.get('booking_name'),
+        'email': request.session.get('booking_email'),
+        'date': request.session.get('booking_date'),
+        'time': request.session.get('booking_time'),
+        'num_guests': request.session.get('booking_num_guests'),
+        'special_requests': request.session.get('booking_special_requests'),
+        'booking_id': request.session.get('booking_id'),
+    }
+    
+    return render(request, 'bookings/booking_cancellation.html', {'booking_info': booking_info})
