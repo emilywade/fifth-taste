@@ -97,4 +97,14 @@ def booking_confirmation(request):
 
 def manage_booking(request, booking_id):
     booking = get_object_or_404(Booking, booking_id=booking_id)
-    return render(request, 'bookings/manage_booking.html', {'booking': booking})
+    
+    if request.method == 'POST':
+        form = BookingForm(request.POST, instance=booking)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Your booking has been updated successfully.')
+            return redirect('manage_booking', booking_id=booking.booking_id)
+    else:
+        form = BookingForm(instance=booking)
+        
+    return render(request, 'bookings/manage_booking.html', {'form': form, 'booking': booking})

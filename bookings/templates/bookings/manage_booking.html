@@ -1,9 +1,12 @@
 {% extends 'base.html' %}
+
 {% block content %}
   <h2>Manage Your Booking</h2>
-  <p><strong>Name:</strong> {{ booking.name }}</p>
-  <p><strong>Date:</strong> {{ booking.date }}</p>
-  <p><strong>Time:</strong> {{ booking.time }}</p>
-  <p><strong>Guests:</strong> {{ booking.num_guests }}</p>
-  <p><strong>Special Requests:</strong> {{ booking.special_requests }}</p>
+
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+
+    <button type="submit">Update Booking</button>
+  </form>
 {% endblock %}
