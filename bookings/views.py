@@ -94,3 +94,7 @@ def booking_confirmation(request):
     }
     return render(request, 'bookings/booking_confirmation.html', context)
 
+
+def manage_booking(request, booking_id):
+    booking = get_object_or_404(Booking, booking_id=booking_id)
+    return render(request, 'bookings/manage_booking.html', {'booking': booking})

@@ -6,4 +6,5 @@ urlpatterns = [
     path('booking-confirmation/', views.booking_confirmation, name='booking_confirmation'),
     path('menu/', views.menu, name='menu'),
     path('', views.home, name='home'), 
+    path('manage_booking/<uuid:booking_id>/', views.manage_booking, name='manage_booking'),
 ]

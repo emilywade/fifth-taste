@@ -27,6 +27,7 @@
             num_guests: "{{ request.session.booking_num_guests|escapejs }}",
             special_requests: "{{ request.session.booking_special_requests|escapejs }}",
             booking_id: "{{ request.session.booking_id|escapejs }}",
+            manage_link: "{{ request.scheme }}://{{ request.get_host }}/manage_booking/{{ request.session.booking_id|escapejs }}/"
         };
 
         console.log("Booking Data:", bookingData);
