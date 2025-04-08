@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from datetime import datetime, timedelta
 from .models import Table, Booking
-from .forms import BookingForm, LookupBookingForm
+from .forms import BookingForm
 from django.contrib import messages
 from django.shortcuts import get_object_or_404
 
@@ -93,3 +93,4 @@ def booking_confirmation(request):
         'booking_time': request.session.get('booking_time'),
     }
     return render(request, 'bookings/booking_confirmation.html', context)
+
