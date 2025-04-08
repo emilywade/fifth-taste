@@ -124,7 +124,7 @@ This project includes several key features designed to provide a seamless user e
 
 ### Deployment
 The site has been deployed using Code Institute's mock terminal for Heroku. I deployed early and consistently to check for any deployment errors. 
-
+Check it out [here](https://the-fifth-taste-b8ef5776e3a8.herokuapp.com/)
 <hr>
 
 ### Testing
