@@ -2,6 +2,7 @@ from django import forms
 from .models import Booking
 import datetime
 
+
 class BookingForm(forms.ModelForm):
     name = forms.CharField(max_length=100, label='Your Name')
     email = forms.EmailField(label='Email Address')
@@ -9,11 +10,19 @@ class BookingForm(forms.ModelForm):
 
     class Meta:
         model = Booking
-        fields = ['name', 'email', 'date', 'time', 'num_guests', 'special_requests']
+        fields = [
+            'name',
+            'email',
+            'date',
+            'time',
+            'num_guests',
+            'special_requests']
         widgets = {
-            'date': forms.DateInput(attrs={'type': 'date'}),
-            'special_requests': forms.TextInput(attrs={'rows': 3, 'placeholder': 'Any special requests?'}),
-        }
+            'date': forms.DateInput(
+                attrs={
+                    'type': 'date'}), 'special_requests': forms.TextInput(
+                attrs={
+                    'rows': 3, 'placeholder': 'Any special requests?'}), }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -24,7 +33,9 @@ class BookingForm(forms.ModelForm):
         for start, end in opening_hours:
             current = datetime.time(hour=start)
             while current < datetime.time(hour=end):
-                slots.append((current.strftime("%H:%M"), current.strftime("%H:%M")))
+                slots.append(
+                    (current.strftime("%H:%M"),
+                     current.strftime("%H:%M")))
                 # Add 30 minutes
                 h, m = current.hour, current.minute
                 if m == 0:

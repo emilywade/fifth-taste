@@ -1,6 +1,7 @@
 from django.test import TestCase
 from .forms import ContactForm
 
+
 class ContactFormTest(TestCase):
 
     def test_contact_form_valid_data(self):

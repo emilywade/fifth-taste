@@ -3,6 +3,7 @@ from .forms import BookingForm
 from .models import Booking
 from django.core.exceptions import ValidationError
 
+
 class BookingFormTest(TestCase):
 
     def test_form_valid_data(self):

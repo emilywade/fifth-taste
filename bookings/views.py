@@ -8,7 +8,7 @@ import logging
 
 
 def get_available_tables(date, time, num_guests):
-    
+
     booking_start = time
     time = datetime.strptime(time, "%H:%M").time()
     booking_end = (datetime.combine(date, time) + timedelta(hours=2)).time()
@@ -35,13 +35,13 @@ def create_booking(request):
             date = data['date']
             time = data['time']
             num_guests = data['num_guests']
-            
+
             available_tables = get_available_tables(date, time, num_guests)
-                        
+
             if available_tables:
-            
+
                 table = available_tables[0]
-                
+
                 booking = Booking.objects.create(
                     table_number=table,
                     name=data['name'],
@@ -51,9 +51,10 @@ def create_booking(request):
                     num_guests=num_guests,
                     special_requests=data['special_requests']
                 )
-                
-                messages.success(request, 'Your booking has been made successfully!')
-                
+
+                messages.success(
+                    request, 'Your booking has been made successfully!')
+
                 request.session['booking_name'] = data['name']
                 request.session['booking_email'] = data['email']
                 request.session['booking_date'] = str(data['date'])
@@ -61,21 +62,25 @@ def create_booking(request):
                 request.session['booking_num_guests'] = str(data['num_guests'])
                 request.session['booking_special_requests'] = data['special_requests']
                 request.session['booking_id'] = str(booking.booking_id)
-                
+
                 return redirect('booking_confirmation')
-                
+
             else:
-                messages.error(request, 'No available tables for the selected time and date.')
-                
-                return render(request, 'bookings/create_booking.html', {'form': form})
-        
+                messages.error(
+                    request, 'No available tables for the selected time and date.')
+
+                return render(request,
+                              'bookings/create_booking.html',
+                              {'form': form})
+
         else:
-            return render(request, 'bookings/create_booking.html', {'form': form})
-            
+            return render(request,
+                          'bookings/create_booking.html',
+                          {'form': form})
+
     else:
         form = BookingForm()
         return render(request, 'bookings/create_booking.html', {'form': form})
-
 
 
 def home(request):
@@ -98,23 +103,27 @@ def booking_confirmation(request):
 
 def manage_booking(request, booking_id):
     booking = get_object_or_404(Booking, booking_id=booking_id)
-    
+
     if request.method == 'POST':
         form = BookingForm(request.POST, instance=booking)
         if form.is_valid():
             updated_booking = form.save()
-            
-            messages.success(request, 'Your booking has been updated successfully.')
-            
-            return redirect('booking_updated_confirmation', booking_id = updated_booking.booking_id)
+
+            messages.success(
+                request, 'Your booking has been updated successfully.')
+
+            return redirect(
+                'booking_updated_confirmation',
+                booking_id=updated_booking.booking_id)
     else:
         form = BookingForm(instance=booking)
-        
-    return render(request, 'bookings/manage_booking.html', {'form': form, 'booking': booking})
 
+    return render(request, 'bookings/manage_booking.html',
+                  {'form': form, 'booking': booking})
 
 
 logger = logging.getLogger(__name__)
+
 
 def delete_booking(request, booking_id):
     logger.debug(f"Attempting to delete booking with ID: {booking_id}")
@@ -138,22 +147,24 @@ def delete_booking(request, booking_id):
         }
 
         request.session['deleted_booking'] = booking_data
-        
+
         booking.delete()
-        
-        messages.success(request, "Your booking has been deleted successfully.")
+
+        messages.success(
+            request,
+            "Your booking has been deleted successfully.")
         logger.debug(f"Redirecting to booking_cancellation")
         return redirect('booking_cancellation')
 
-    return redirect('manage_booking', booking_id=booking_id) 
-
+    return redirect('manage_booking', booking_id=booking_id)
 
 
 def booking_updated_confirmation(request, booking_id):
     booking = get_object_or_404(Booking, booking_id=booking_id)
-    
-    return render(request, 'bookings/booking_updated_confirmation.html', {'booking': booking})
 
+    return render(request,
+                  'bookings/booking_updated_confirmation.html',
+                  {'booking': booking})
 
 
 def booking_cancellation(request):
@@ -166,5 +177,7 @@ def booking_cancellation(request):
         'special_requests': request.session.get('booking_special_requests'),
         'booking_id': request.session.get('booking_id'),
     }
-    
-    return render(request, 'bookings/booking_cancellation.html', {'booking_info': booking_info})
+
+    return render(request,
+                  'bookings/booking_cancellation.html',
+                  {'booking_info': booking_info})
