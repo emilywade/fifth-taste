@@ -5,10 +5,11 @@
 2. [Rationale](#rationale)
 3. [Planning](#planning)
 4. [Schema](#schema)
-5. [Security Features](#security-features)
-6. [Deployment](#deployment)
-7. [Testing](#testing)
-8. [Credits](#credits)
+5. [Key Features](#key-features)
+6. [Security Features](#security-features)
+7. [Deployment](#deployment)
+8. [Testing](#testing)
+9. [Credits](#credits)
 
 <hr>
 
@@ -98,6 +99,15 @@ The Booking model is used to store reservation details made by users. It include
 - duration: The default duration of the booking, set to 2 hours.
 
 <hr>
+
+### Key Features
+This project includes several key features designed to provide a seamless user experience for managing bookings and customer inquiries:
+
+- CRUD Functionality: Users are able to Create, Read, Update, and Delete their bookings. This allows for flexibility in managing booking information.
+- Booking Availability Check: The system checks table availability in real-time to ensure that no double bookings occur. Users can only select available tables for their desired date and time. 
+- No Overlapping Bookings: The system prevents overlapping bookings for the same table at the same time, ensuring that each table is booked for only one group at any given time.
+- Email Confirmation: Upon successful booking, users receive an email confirmation detailing their booking information, including the table number, date, time, and any special requests made. This helps confirm their reservation and reduces the chance of mistakes.
+- Manage Booking: Users can easily manage their bookings by viewing, updating, or cancelling their reservation. A link to manage their booking is provided as part of the email confirmation. I didn't want users to have to create an account in order to book with us - this annoys me with other restaurant websites - so I used the unique booking_id to access booking details. 
 
 ### Security Features
 1. CSRF Protection
