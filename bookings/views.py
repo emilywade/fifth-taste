@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect
 from datetime import datetime, timedelta
 from .models import Table, Booking
-from .forms import BookingForm
+from .forms import BookingForm, LookupBookingForm
 from django.contrib import messages
+from django.shortcuts import get_object_or_404
 
 
 def get_available_tables(date, time, num_guests):
@@ -40,7 +41,7 @@ def create_booking(request):
             
                 table = available_tables[0]
                 
-                Booking.objects.create(
+                booking = Booking.objects.create(
                     table_number=table,
                     name=data['name'],
                     email=data['email'],
@@ -58,6 +59,7 @@ def create_booking(request):
                 request.session['booking_time'] = str(data['time'])
                 request.session['booking_num_guests'] = str(data['num_guests'])
                 request.session['booking_special_requests'] = data['special_requests']
+                request.session['booking_id'] = str(booking.booking_id)
                 
                 return redirect('booking_confirmation')
                 
@@ -91,4 +93,3 @@ def booking_confirmation(request):
         'booking_time': request.session.get('booking_time'),
     }
     return render(request, 'bookings/booking_confirmation.html', context)
-    

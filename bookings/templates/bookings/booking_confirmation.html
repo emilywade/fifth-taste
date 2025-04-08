@@ -25,7 +25,8 @@
             date: "{{ request.session.booking_date|escapejs }}",
             time: "{{ request.session.booking_time|escapejs }}",
             num_guests: "{{ request.session.booking_num_guests|escapejs }}",
-            special_requests: "{{ request.session.booking_special_requests|escapejs }}"
+            special_requests: "{{ request.session.booking_special_requests|escapejs }}",
+            booking_id: "{{ request.session.booking_id|escapejs }}"
         };
 
         console.log("Booking Data:", bookingData);

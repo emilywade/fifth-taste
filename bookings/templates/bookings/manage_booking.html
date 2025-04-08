@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container text-center">
+    <h2 class="mb-4">Manage Your Booking</h2>
+    <p><strong>Name:</strong> {{ booking.name }}</p>
+    <p><strong>Email:</strong> {{ booking.email }}</p>
+    <p><strong>Date:</strong> {{ booking.date }}</p>
+    <p><strong>Time:</strong> {{ booking.time }}</p>
+    <p><strong>Guests:</strong> {{ booking.num_guests }}</p>
+
+    <a href="" class="btn btn-warning me-2">Edit Booking</a>
+    <a href="" class="btn btn-danger">Cancel Booking</a>
+</div>
+{% endblock %}
