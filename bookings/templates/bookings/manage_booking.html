@@ -88,4 +88,37 @@
         </div>
     </div>
 </div>
+
+<!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
+<script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", function () {
+
+        emailjs.init("orDbunfZEWG7sa4Ss");
+
+        const bookingData = {
+            name: "{{ form.instance.name|escapejs }}",
+            email: "{{ form.instance.email|escapejs }}",
+            date: "{{ form.instance.date|date:'Y-m-d'|escapejs }}",
+            time: "{{ form.instance.time|escapejs }}",
+            num_guests: "{{ form.instance.num_guests|escapejs }}",
+            special_requests: "{{ form.instance.special_requests|escapejs }}",
+            booking_id: "{{ form.instance.booking_id|escapejs }}",
+            manage_link: "{{ request.scheme }}://{{ request.get_host }}/manage-booking/{{ form.instance.booking_id|escapejs }}/"
+        };
+
+        document.getElementById("bookingForm").addEventListener("submit", function (event) {
+            event.preventDefault();
+
+            emailjs.send("service_n79jo81", "template_2exvx03", bookingData)
+                .then(function(response) {
+                    console.log("SUCCESS!", response.status, response.text);
+                }, function(error) {
+                    console.log("FAILED...", error);
+                });
+            this.submit();
+        });
+    });
+</script> -->
+
 {% endblock %}

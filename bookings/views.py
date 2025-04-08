@@ -102,13 +102,17 @@ def manage_booking(request, booking_id):
     if request.method == 'POST':
         form = BookingForm(request.POST, instance=booking)
         if form.is_valid():
-            form.save()
+            updated_booking = form.save()
+            
             messages.success(request, 'Your booking has been updated successfully.')
-            return redirect('manage_booking', booking_id=booking.booking_id)
+            
+            return redirect('booking_updated_confirmation', booking_id = updated_booking.booking_id)
     else:
         form = BookingForm(instance=booking)
         
     return render(request, 'bookings/manage_booking.html', {'form': form, 'booking': booking})
+
+
 
 logger = logging.getLogger(__name__)
 
@@ -128,3 +132,8 @@ def delete_booking(request, booking_id):
         return redirect('home')
 
     return redirect('manage_booking', booking_id=booking_id) 
+
+def booking_updated_confirmation(request, booking_id):
+    booking = get_object_or_404(Booking, booking_id=booking_id)
+    
+    return render(request, 'bookings/booking_updated_confirmation.html', {'booking': booking})
