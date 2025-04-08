@@ -114,7 +114,7 @@ The site has been deployed using Code Institute's mock terminal for Heroku. I de
 
 <hr>
 
-### Testing and Validation
+### Testing
 #### Validation
 - Bootstrap's built-in form validation for client-side validation 
 - Django's clean() method for server-side validation to ensure that the data entered by users is both accurate and secure before being saved to the database.
