@@ -1,44 +1,44 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="message-container">
-    <h2>Your booking has been successfully made!</h2>
-    <p>Thank you for booking with us. We look forward to seeing you soon!</p>
-</div>    
+    <div class="message-container">
+        <h2>Your booking has been successfully made!</h2>
+        <p>Thank you for booking with us. We look forward to seeing you soon!</p>
+    </div>
 
-<script type="text/javascript"
-         src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
-</script>
+    <script type="text/javascript"
+            src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
+    </script>
 
-<script type="text/javascript">
-    document.addEventListener("DOMContentLoaded", function () {
-        
-        (function(){
-            emailjs.init({
-                publicKey: "orDbunfZEWG7sa4Ss",
-            });
-        })();
+    <script type="text/javascript">
+        document.addEventListener("DOMContentLoaded", function () {
 
-        const bookingData = {
-            name: "{{ request.session.booking_name|escapejs }}",
-            email: "{{ request.session.booking_email|escapejs }}",
-            date: "{{ request.session.booking_date|escapejs }}",
-            time: "{{ request.session.booking_time|escapejs }}",
-            num_guests: "{{ request.session.booking_num_guests|escapejs }}",
-            special_requests: "{{ request.session.booking_special_requests|escapejs }}",
-            booking_id: "{{ request.session.booking_id|escapejs }}",
-            manage_link: "{{ request.scheme }}://{{ request.get_host }}/manage_booking/{{ request.session.booking_id|escapejs }}/"
-        };
+            (function(){
+                emailjs.init({
+                    publicKey: "orDbunfZEWG7sa4Ss",
+                });
+            })();
 
-        console.log("Booking Data:", bookingData);
+            const bookingData = {
+                name: "{{ request.session.booking_name|escapejs }}",
+                email: "{{ request.session.booking_email|escapejs }}",
+                date: "{{ request.session.booking_date|escapejs }}",
+                time: "{{ request.session.booking_time|escapejs }}",
+                num_guests: "{{ request.session.booking_num_guests|escapejs }}",
+                special_requests: "{{ request.session.booking_special_requests|escapejs }}",
+                booking_id: "{{ request.session.booking_id|escapejs }}",
+                manage_link: "{{ request.scheme }}://{{ request.get_host }}/manage_booking/{{ request.session.booking_id|escapejs }}/"
+            };
 
-        emailjs.send("service_n79jo81", "template_2exvx03", bookingData)
-            .then(function(response) {
-            console.log("SUCCESS!", response.status, response.text);
-            }, function(error) {
-            console.log("FAILED...", error);
-            });
-    });
-</script>
+            console.log("Booking Data:", bookingData);
+
+            emailjs.send("service_n79jo81", "template_2exvx03", bookingData)
+                .then(function(response) {
+                    console.log("SUCCESS!", response.status, response.text);
+                }, function(error) {
+                    console.log("FAILED...", error);
+                });
+        });
+    </script>
 
 {% endblock %}

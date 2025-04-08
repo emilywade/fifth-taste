@@ -1,40 +1,40 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="message-container">
-    <h2>Your booking has been updated!</h2>
-    <p>We've sent you a confirmation email with the updated details.</p>
-</div>    
+    <div class="message-container">
+        <h2>Your booking has been updated!</h2>
+        <p>We've sent you a confirmation email with the updated details.</p>
+    </div>
 
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 
-<script type="text/javascript">
-    document.addEventListener("DOMContentLoaded", function () {
-        (function(){
-            emailjs.init({
-                publicKey: "orDbunfZEWG7sa4Ss",
-            });
-        })();
+    <script type="text/javascript">
+        document.addEventListener("DOMContentLoaded", function () {
+            (function(){
+                emailjs.init({
+                    publicKey: "orDbunfZEWG7sa4Ss",
+                });
+            })();
 
-        const bookingData = {
-            name: "{{ booking.name|escapejs }}",
-            email: "{{ booking.email|default_if_none:''|escapejs }}",
-            date: "{{ booking.date|date:'Y-m-d'|escapejs }}",
-            time: "{{ booking.time|escapejs }}",
-            num_guests: "{{ booking.num_guests|escapejs }}",
-            special_requests: "{{ booking.special_requests|escapejs }}",
-            booking_id: "{{ booking.booking_id|escapejs }}",
-            manage_link: "{{ request.scheme }}://{{ request.get_host }}/manage_booking/{{ booking.booking_id|escapejs }}/"
-        };
+            const bookingData = {
+                name: "{{ booking.name|escapejs }}",
+                email: "{{ booking.email|default_if_none:''|escapejs }}",
+                date: "{{ booking.date|date:'Y-m-d'|escapejs }}",
+                time: "{{ booking.time|escapejs }}",
+                num_guests: "{{ booking.num_guests|escapejs }}",
+                special_requests: "{{ booking.special_requests|escapejs }}",
+                booking_id: "{{ booking.booking_id|escapejs }}",
+                manage_link: "{{ request.scheme }}://{{ request.get_host }}/manage_booking/{{ booking.booking_id|escapejs }}/"
+            };
 
-        console.log("Sending email with:", bookingData);
+            console.log("Sending email with:", bookingData);
 
-        emailjs.send("service_n79jo81", "template_2exvx03", bookingData)
-            .then(function(response) {
-                console.log("SUCCESS!", response.status, response.text);
-            }, function(error) {
-                console.log("FAILED...", error);
-            });
-    });
-</script>
+            emailjs.send("service_n79jo81", "template_2exvx03", bookingData)
+                .then(function(response) {
+                    console.log("SUCCESS!", response.status, response.text);
+                }, function(error) {
+                    console.log("FAILED...", error);
+                });
+        });
+    </script>
 {% endblock %}
