@@ -5,6 +5,7 @@ from .forms import BookingForm
 from django.contrib import messages
 from django.shortcuts import get_object_or_404
 import logging
+from django.contrib.auth.decorators import login_required
 
 
 def get_available_tables(date, time, num_guests):
@@ -43,6 +44,7 @@ def create_booking(request):
                 table = available_tables[0]
 
                 booking = Booking.objects.create(
+                    user=request.user if request.user.is_authenticated else None,
                     table_number=table,
                     name=data['name'],
                     email=data['email'],
@@ -181,3 +183,9 @@ def booking_cancellation(request):
     return render(request,
                   'bookings/booking_cancellation.html',
                   {'booking_info': booking_info})
+
+
+@login_required
+def my_bookings(request):
+    bookings = Booking.objects.filter(user=request.user).order_by('-date', '-time')
+    return render(request, 'bookings/my_bookings.html', {'bookings': bookings})

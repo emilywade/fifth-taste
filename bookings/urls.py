@@ -34,4 +34,8 @@ urlpatterns = [
         'booking-cancellation/',
         views.booking_cancellation,
         name='booking_cancellation'),
+    path(
+        'my-bookings/', 
+        views.my_bookings, 
+        name='my_bookings'),
 ]

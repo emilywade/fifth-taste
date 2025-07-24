@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>My Bookings</h2>
+
+  {% if bookings %}
+    <ul>
+      {% for booking in bookings %}
+        <li>
+          {{ booking.date }} at {{ booking.time }} — Table {{ booking.table_number }} for {{ booking.num_guests }} guests
+          <a href="{% url 'manage_booking' booking.booking_id %}">Edit</a>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>You have no bookings.</p>
+  {% endif %}
+{% endblock %}
