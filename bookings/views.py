@@ -27,7 +27,7 @@ def get_available_tables(date, time, num_guests):
 
     return available_tables
 
-
+@login_required
 def create_booking(request):
     if request.method == 'POST':
         form = BookingForm(request.POST)
