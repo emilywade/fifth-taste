@@ -102,7 +102,7 @@ def booking_confirmation(request):
     }
     return render(request, 'bookings/booking_confirmation.html', context)
 
-
+@login_required
 def manage_booking(request, booking_id):
     booking = get_object_or_404(Booking, booking_id=booking_id)
 
@@ -126,7 +126,7 @@ def manage_booking(request, booking_id):
 
 logger = logging.getLogger(__name__)
 
-
+@login_required
 def delete_booking(request, booking_id):
     logger.debug(f"Attempting to delete booking with ID: {booking_id}")
     try:
@@ -160,7 +160,7 @@ def delete_booking(request, booking_id):
 
     return redirect('manage_booking', booking_id=booking_id)
 
-
+@login_required
 def booking_updated_confirmation(request, booking_id):
     booking = get_object_or_404(Booking, booking_id=booking_id)
 
@@ -168,7 +168,7 @@ def booking_updated_confirmation(request, booking_id):
                   'bookings/booking_updated_confirmation.html',
                   {'booking': booking})
 
-
+@login_required
 def booking_cancellation(request):
     booking_info = {
         'name': request.session.get('booking_name'),
