@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 from datetime import datetime, timedelta
 import uuid
 
@@ -12,6 +13,7 @@ class Table(models.Model):
 
 
 class Booking(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     booking_id = models.UUIDField(
         default=uuid.uuid4,
         editable=False,
