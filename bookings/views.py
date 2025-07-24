@@ -104,7 +104,7 @@ def booking_confirmation(request):
 
 @login_required
 def manage_booking(request, booking_id):
-    booking = get_object_or_404(Booking, booking_id=booking_id)
+    booking = get_object_or_404(Booking, booking_id=booking_id, user=request.user)
 
     if request.method == 'POST':
         form = BookingForm(request.POST, instance=booking)
@@ -130,7 +130,7 @@ logger = logging.getLogger(__name__)
 def delete_booking(request, booking_id):
     logger.debug(f"Attempting to delete booking with ID: {booking_id}")
     try:
-        booking = get_object_or_404(Booking, booking_id=booking_id)
+        booking = get_object_or_404(Booking, booking_id=booking_id, user=request.user)
         logger.debug(f"Booking found: {booking}")
     except Exception as e:
         logger.error(f"Error: {str(e)}")
@@ -162,7 +162,7 @@ def delete_booking(request, booking_id):
 
 @login_required
 def booking_updated_confirmation(request, booking_id):
-    booking = get_object_or_404(Booking, booking_id=booking_id)
+    booking = get_object_or_404(Booking, booking_id=booking_id, user=request.user)
 
     return render(request,
                   'bookings/booking_updated_confirmation.html',
