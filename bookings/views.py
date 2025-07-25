@@ -27,6 +27,7 @@ def get_available_tables(date, time, num_guests):
 
     return available_tables
 
+
 @login_required
 def create_booking(request):
     if request.method == 'POST':
@@ -40,49 +41,55 @@ def create_booking(request):
             available_tables = get_available_tables(date, time, num_guests)
 
             if available_tables:
-
                 table = available_tables[0]
 
                 booking = Booking.objects.create(
-                    user=request.user if request.user.is_authenticated else None,
+                    user=(
+                        request.user if request.user.is_authenticated else None
+                    ),
                     table_number=table,
                     name=data['name'],
                     email=data['email'],
                     date=date,
                     time=time,
                     num_guests=num_guests,
-                    special_requests=data['special_requests']
+                    special_requests=data['special_requests'],
                 )
 
                 messages.success(
-                    request, 'Your booking has been made successfully!')
+                    request,
+                    'Your booking has been made successfully!'
+                )
 
                 request.session['booking_name'] = data['name']
                 request.session['booking_email'] = data['email']
                 request.session['booking_date'] = str(data['date'])
                 request.session['booking_time'] = str(data['time'])
                 request.session['booking_num_guests'] = str(data['num_guests'])
-                request.session['booking_special_requests'] = data['special_requests']
+                request.session['booking_special_requests'] = data[
+                    'special_requests']
                 request.session['booking_id'] = str(booking.booking_id)
 
                 return redirect('booking_confirmation')
 
-            else:
-                messages.error(
-                    request, 'No available tables for the selected time and date.')
+            messages.error(
+                request,
+                'No available tables for the selected time and date.'
+            )
+            return render(
+                request,
+                'bookings/create_booking.html',
+                {'form': form}
+            )
 
-                return render(request,
-                              'bookings/create_booking.html',
-                              {'form': form})
+        return render(
+            request,
+            'bookings/create_booking.html',
+            {'form': form}
+        )
 
-        else:
-            return render(request,
-                          'bookings/create_booking.html',
-                          {'form': form})
-
-    else:
-        form = BookingForm()
-        return render(request, 'bookings/create_booking.html', {'form': form})
+    form = BookingForm()
+    return render(request, 'bookings/create_booking.html', {'form': form})
 
 
 def home(request):
@@ -102,9 +109,13 @@ def booking_confirmation(request):
     }
     return render(request, 'bookings/booking_confirmation.html', context)
 
+
 @login_required
 def manage_booking(request, booking_id):
-    booking = get_object_or_404(Booking, booking_id=booking_id, user=request.user)
+    booking = get_object_or_404(
+        Booking,
+        booking_id=booking_id,
+        user=request.user)
 
     if request.method == 'POST':
         form = BookingForm(request.POST, instance=booking)
@@ -126,11 +137,13 @@ def manage_booking(request, booking_id):
 
 logger = logging.getLogger(__name__)
 
+
 @login_required
 def delete_booking(request, booking_id):
     logger.debug(f"Attempting to delete booking with ID: {booking_id}")
     try:
-        booking = get_object_or_404(Booking, booking_id=booking_id, user=request.user)
+        booking = get_object_or_404(
+            Booking, booking_id=booking_id, user=request.user)
         logger.debug(f"Booking found: {booking}")
     except Exception as e:
         logger.error(f"Error: {str(e)}")
@@ -160,13 +173,18 @@ def delete_booking(request, booking_id):
 
     return redirect('manage_booking', booking_id=booking_id)
 
+
 @login_required
 def booking_updated_confirmation(request, booking_id):
-    booking = get_object_or_404(Booking, booking_id=booking_id, user=request.user)
+    booking = get_object_or_404(
+        Booking,
+        booking_id=booking_id,
+        user=request.user)
 
     return render(request,
                   'bookings/booking_updated_confirmation.html',
                   {'booking': booking})
+
 
 @login_required
 def booking_cancellation(request):
@@ -187,5 +205,7 @@ def booking_cancellation(request):
 
 @login_required
 def my_bookings(request):
-    bookings = Booking.objects.filter(user=request.user).order_by('-date', '-time')
+    bookings = Booking.objects.filter(
+        user=request.user).order_by(
+        '-date', '-time')
     return render(request, 'bookings/my_bookings.html', {'bookings': bookings})
