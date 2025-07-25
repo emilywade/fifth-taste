@@ -214,12 +214,11 @@ python3 manage.py migrate
 ```
 python3 manage.py createsuperuser
 ```
-• Set DEBUG = False again.
-• Committed and pushed changes to GitHub.
-• In heroku - In Settings > Config Vars, added a new key:
-		○ DATABASE_URL with the value from your PostgreSQL host.
-• Deployed branch again via the Deploy tab.
-• Opened the app to verify that it was connected to the live database.
+- Set DEBUG = False again.
+- Committed and pushed changes to GitHub.
+- In heroku - In Settings > Config Vars, added a new key DATABASE_URL with the value from PostgreSQL host.
+- Deployed branch again via the Deploy tab.
+- Opened the app to verify that it was connected to the live database.
 
 <hr>
 
