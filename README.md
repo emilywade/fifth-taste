@@ -26,7 +26,9 @@ In this application, both **owners** and **staff** users have identical access p
 
 #### Customers:
 
-Customers can check available time slots and make reservations directly from the website. Customers can also modify their booking details via the website.
+Customers can register for an account and log in. Once logged in, they can make new bookings, view their existing bookings, update or delete them directly from the website.
+
+In the first version, booking management happened via email links. This is no longer supported — customers must log in to manage their bookings. This approach improves security and centralizes control over booking information.
 
 <hr>
 
@@ -103,23 +105,29 @@ The Booking model is used to store reservation details made by users. It include
 
 ### Key Features
 This project includes several key features designed to provide a seamless user experience for managing bookings and customer inquiries:
-
-- CRUD Functionality: Users are able to Create, Read, Update, and Delete their bookings. This allows for flexibility in managing booking information.
+- User Authentication: Customers can register and log in to manage their bookings. Logged-in users can only view and manage their own bookings.
+- CRUD Functionality: Logged-in users can Create, Read, Update, and Delete their own bookings via the website.
 - Booking Availability Check: The system checks table availability in real-time to ensure that no double bookings occur. Users can only select available tables for their desired date and time. 
 - No Overlapping Bookings: The system prevents overlapping bookings for the same table at the same time, ensuring that each table is booked for only one group at any given time.
-- Email Confirmation: Upon successful booking, users receive an email confirmation detailing their booking information, including the table number, date, time, and any special requests made. This helps confirm their reservation and reduces the chance of mistakes.
-- Manage Booking: Users can easily manage their bookings by viewing, updating, or cancelling their reservation. A link to manage their booking is provided as part of the email confirmation. I didn't want users to have to create an account in order to book with us - this annoys me with other restaurant websites - so I used the unique booking_id to access booking details. 
+- Email Confirmation: Upon a successful booking, users receive a confirmation email. However, bookings can no longer be modified or cancelled via links in the email — users must log in to manage them.
+- Manage Booking: To enhance security, booking management (view/edit/delete) is now restricted to authenticated users within their dashboard. This replaces the previous method where users could access booking actions via a direct link in their confirmation email.
+
 
 ### Security Features
-1. CSRF Protection
+1. Access Control
+   To ensure secure handling of user data, I implemented access control measures so that only the user who created a booking can view, edit, or delete it. This was achieved by adding a user field to the Booking model to associate each booking with the authenticated user who created it. In the views responsible for managing, updating, and deleting bookings, I included checks to ensure that only the owner of a booking (i.e. booking.user == request.user) can access or modify it. If a user attempts to access a booking that does not belong to them, they are shown a 404 error, preventing unauthorized access via direct URLs.
+3. CSRF Protection
    Cross-Site Request Forgery (CSRF) protection is enabled for all forms to prevent malicious requests.
    I actually learnt about this by accident - when debugging in this project I came across [this site](https://docs.djangoproject.com/en/5.1/howto/csrf/) which explained the importance of this.
-2.  Admin Panel Access
+4.  Admin Panel Access
    Admin panel access is restricted to superusers only. Each must have their own account.
-3. Database security
+5. Database security
    All sensitive data is stored in config vars within Heroku.
-4. UUID
+6. UUID
    I generated booking IDs automatically using Python's UUID module. I knew this was something I wanted to use from the beginning after reading about it on [Stack Overflow](https://stackoverflow.com/questions/1210458/how-can-i-generate-a-unique-id-in-python)
+
+
+
 
 <hr>
 
