@@ -162,9 +162,6 @@ python3 manage.py runserver
 - Bootstrap's built-in form validation for client-side validation 
 - Django's clean() method for server-side validation to ensure that the data entered by users is both accurate and secure before being saved to the database.
   
-#### Manual Testing
-- Django Shell: Initially, I used the Django shell to manually test key functions and methods to ensure they were working as expected. This allowed for quick and direct feedback on the behavior of models, views, and other backend logic.
-- CSS, HTML, and JavaScript Validators: I validated HTML using `djhtml` and CSS using [W3C](https://validator.w3.org/). JavaScript was tested using console-based debugging during development, as well as [JSHint](https://jshint.com/) after completion.
 
 #### Manual Testing
 ##### Django Shell
