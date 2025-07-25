@@ -156,28 +156,28 @@ python3 manage.py runserver
 ```
 
 Steps Taken to Deploy to Heroku
-	1. Logged in to Heroku and created a new app.
-	2. In the app’s Settings > Config Vars, added the following:
-		○ Key: DISABLE_COLLECTSTATIC, Value: 1
-	3. Installed Gunicorn (WSGI server for deployment):
-   `pip3 install gunicorn~=20.1`
-	4. Updated requirements.txt again:
-	`pip3 freeze --local > requirements.txt`
-	5. Created a Procfile in the project root (same level as requirements.txt):
-   `web: gunicorn my_project.wsgi`
-	6. In settings.py, updated the ALLOWED_HOSTS:
-	`ALLOWED_HOSTS = ['.herokuapp.com', '127.0.0.1']`
-	7. Set DEBUG = False for production use.
-	8. Committed and pushed all changes to GitHub.
-	9. In Heroku dashboard:
-		○ Clicked on Deploy tab.
-		○ Connected the app to the GitHub repository.
-		○ Deployed the branch via Deploy Branch button.
-	10. In the Resources tab:
-		○ Refreshed the page.
-		○ Selected Eco dyno.
-		○ Checked for existing Heroku Postgres add-ons and deleted any automatically added ones.
-	11. Verified the deployed app by opening the live link.
+1. Logged in to Heroku and created a new app.
+2. In the app’s Settings > Config Vars, added the following:
+	○ Key: DISABLE_COLLECTSTATIC, Value: 1
+3. Installed Gunicorn (WSGI server for deployment):
+`pip3 install gunicorn~=20.1`
+4. Updated requirements.txt again:
+`pip3 freeze --local > requirements.txt`
+5. Created a Procfile in the project root (same level as requirements.txt):
+`web: gunicorn my_project.wsgi`
+6. In settings.py, updated the ALLOWED_HOSTS:
+`ALLOWED_HOSTS = ['.herokuapp.com', '127.0.0.1']`
+7. Set DEBUG = False for production use.
+8. Committed and pushed all changes to GitHub.
+9. In Heroku dashboard:
+	○ Clicked on Deploy tab.
+	○ Connected the app to the GitHub repository.
+	○ Deployed the branch via Deploy Branch button.
+10. In the Resources tab:
+	○ Refreshed the page.
+	○ Selected Eco dyno.
+	○ Checked for existing Heroku Postgres add-ons and deleted any automatically added ones.
+11. Verified the deployed app by opening the live link.
 
 <hr>
 
