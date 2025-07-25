@@ -155,7 +155,7 @@ django-admin startproject fifth_taste .
 python3 manage.py runserver
 ```
 
-Steps Taken to Deploy to Heroku
+#### Steps Taken to Deploy to Heroku
 1. Logged in to Heroku and created a new app.
 2. In the app’s Settings > Config Vars, added the following:
 	○ Key: DISABLE_COLLECTSTATIC, Value: 1
@@ -178,6 +178,50 @@ Steps Taken to Deploy to Heroku
 	○ Selected Eco dyno.
 	○ Checked for existing Heroku Postgres add-ons and deleted any automatically added ones.
 11. Verified the deployed app by opening the live link.
+
+#### Connecting to POSTGRES
+• Temporarily set DEBUG = True in settings.py.
+• Created an env.py file at the project root and added it to .gitignore.
+• Inside env.py, added: 
+```
+import os
+os.environ.setdefault("DATABASE_URL", "<your-database-url>")
+```
+• Installed required packages:
+```
+pip3 install dj-database-url~=0.5 psycopg2~=2.9
+pip3 freeze --local > requirements.txt
+```
+• In settings.py, added the following to the top:
+```
+import os
+import dj_database_url
+
+if os.path.isfile('env.py'):
+    import env
+```
+• Replaced the default DATABASES config with:
+```
+DATABASES = {
+    'default': dj_database_url.parse(os.environ.get("DATABASE_URL"))
+}
+```
+• Ran the migrations:
+```
+python3 manage.py migrate
+```
+• Created a superuser:
+```
+python3 manage.py createsuperuser
+```
+• Set DEBUG = False again.
+• Committed and pushed changes to GitHub.
+• Back in Heroku:
+	• In Settings > Config Vars, added a new key:
+		○ DATABASE_URL with the value from your PostgreSQL host.
+	• If Heroku added a Postgres database by default, went to Resources and deleted it.
+• Deployed branch again via the Deploy tab.
+• Opened the app to verify that it was connected to the live database.
 
 <hr>
 
