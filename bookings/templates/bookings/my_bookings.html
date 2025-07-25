@@ -7,7 +7,7 @@
     <ul>
       {% for booking in bookings %}
         <li>
-          {{ booking.date }} at {{ booking.time }} — Table {{ booking.table_number }} for {{ booking.num_guests }} guests
+          {{ booking.date }} at {{ booking.time }} — {{ booking.table_number }} for {{ booking.num_guests }} guests
           <a href="{% url 'manage_booking' booking.booking_id %}">Edit</a>
         </li>
       {% endfor %}
