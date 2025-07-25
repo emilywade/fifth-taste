@@ -87,7 +87,8 @@ The Table model is used to manage the restaurant's tables. Each table is identif
 ### Booking Model
 The Booking model is used to store reservation details made by users. It includes information about the booking, such as the table reserved, the user's name, email, date and time of booking, the number of guests, special requests, and the booking's duration. This model has a one-to-many relationship this the Table model: each Booking is linked to one specific Table, but a Table can be associated with multiple Bookings. 
 
-- booking_id: A unique UUID identifier for each booking. 
+- booking_id: A unique UUID identifier for each booking.
+- user: Username for each customer, set by the user at registration and used to login. 
 - table_number: A foreign key linking the booking to a specific table from the Table model.
 - name: The name of the person who made the booking.
 - email: The email address of the person who made the booking.
@@ -123,8 +124,37 @@ This project includes several key features designed to provide a seamless user e
 <hr>
 
 ### Deployment
-The site has been deployed using Code Institute's mock terminal for Heroku. I deployed early and consistently to check for any deployment errors. 
-Check it out [here](https://the-fifth-taste-b8ef5776e3a8.herokuapp.com/)
+This project has been deployed to Heroku for live use. Check it out [here](https://the-fifth-taste-b8ef5776e3a8.herokuapp.com/)
+Below is a breakdown of the steps I took to deploy the application and connect it to a remote database.
+
+#### Initial Project Setup
+- Created a new local folder.
+- Opened the folder in VS Code.
+- Created a new GitHub repository (without a README).
+- Copied the GitHub repo commands into the VS Code terminal to initialise and connect the local repo.
+- Verified the repository was connected by refreshing it on GitHub.
+- Created a virtual environment:
+```
+python3 -m venv .venv
+```
+- Created a .gitignore file and added .venv to it.
+- Installed Django:
+```
+pip3 install Django~=4.2.1
+```
+- Generated a requirements.txt file:
+```
+pip3 freeze --local > requirements.txt
+```
+- Started the Django project:
+```
+django-admin startproject fifth_taste .
+```
+- Verified the server was running locally:
+```
+python3 manage.py runserver
+```
+
 <hr>
 
 ### Testing
@@ -135,6 +165,45 @@ Check it out [here](https://the-fifth-taste-b8ef5776e3a8.herokuapp.com/)
 #### Manual Testing
 - Django Shell: Initially, I used the Django shell to manually test key functions and methods to ensure they were working as expected. This allowed for quick and direct feedback on the behavior of models, views, and other backend logic.
 - CSS, HTML, and JavaScript Validators: I validated HTML using `djhtml` and CSS using [W3C](https://validator.w3.org/). JavaScript was tested using console-based debugging during development, as well as [JSHint](https://jshint.com/) after completion.
+
+#### Manual Testing
+##### Django Shell
+The Django shell was used extensively during development to test the behavior of models, particularly:
+
+- Booking creation and retrieval
+- Table availability logic
+- User associations with bookings
+
+For example:
+```
+from bookings.models import Booking, Table
+Booking.objects.create(...)
+```
+
+##### HTML, CSS & JavaScript Validation
+HTML: Validated using `djhtml`
+CSS: Validated using [W3C CSS Validator](https://validator.w3.org/)
+JavaScript: Tested using browser console and [JSHint](https://jshint.com/) to catch syntax and logic issues
+
+##### Manual Test Cases
+| Feature | Test Steps | Expected Outcome | Actual Outcome |
+| ------- | ---------- | ---------------- | -------------- |
+| Booking creation (logged in) | Log in → Submit valid form |	Booking is saved and confirmation shown |	As expected	|
+| Booking creation (not logged in) | Try to access booking page without logging in | Redirected to login page | As expected |
+| Edit own booking | Log in → Go to booking page → Update form → Submit | Booking is updated | As expected	|
+| Edit someone else’s booking | Log in as User A → Try to access User B's booking via URL | 404 error shown | As expected	|
+| Delete booking | Submit deletion form for own booking | Booking is deleted and cancellation message shown | As expected	|
+| Contact form submission | Fill form with valid inputs and submit | "Message sent" success message appears | As expected	|
+| Register with existing email | Try to register using an existing account email | Error message shown | As expected	|
+| Invalid email input | Submit form with invalid email format | Form displays validation error | As expected	|
+| Table availability check | Try to book more guests than any table can hold | Error message "no available tables" | As expected	|
+
+##### Edge Cases Tested
+- Booking within overlapping time windows
+- Booking when no tables are available
+- Attempting to book for a past date/time
+- Submitting incomplete or invalid forms
+- Accessing another user's booking (blocked via permissions)
 
 #### Automated Testing
 - I used Django's TestCase to test models and forms. I used it to check my Booking views were interacting with the database correctly (bookings can be created, updated and deleted). I also used it to check the contact form was validating data correctly, saving valid data to the database and providing correct feedback when invalid data is entered. 
